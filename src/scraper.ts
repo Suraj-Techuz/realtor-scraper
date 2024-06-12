@@ -18,7 +18,7 @@ const scrapeWithPuppeteer = async (url: string): Promise<{ available: boolean; s
 
         const divSelector = 'div.xb-table-wrapper.custom-link';
         console.log(`Waiting for selector: ${divSelector}`);
-        const tableWrapper = await page.waitForSelector(divSelector, { timeout: 4000 }).catch(() => null);
+        const tableWrapper = await page.waitForSelector(divSelector, { timeout: 10000 }).catch(() => null);
 
         if (!tableWrapper) {
             console.log('Table wrapper not found, returning not available.');
