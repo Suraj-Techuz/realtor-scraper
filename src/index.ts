@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import scraper from './scraper';
 
 const app = express();
-const port = 80;
+const port = 3000;
 
 app.use(express.json());
 
