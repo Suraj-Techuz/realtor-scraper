@@ -7,7 +7,7 @@ const port = 3000;
 app.use(express.json());
 
 const queue: { req: Request; res: Response }[] = [];
-const maxConcurrentRequests = 5;
+const maxConcurrentRequests = 2;
 let activeRequests = 0;
 
 const processQueue = async () => {
@@ -17,7 +17,8 @@ const processQueue = async () => {
 
     const { req, res } = queue.shift()!;
     activeRequests++;
-
+    console.log('activeRequests ', activeRequests)
+    console.log('queue.length ', queue.length)
     const { url } = req.body;
     console.log(`Processing request for URL: ${url}`);
 
