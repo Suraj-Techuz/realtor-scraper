@@ -14,7 +14,7 @@ sudo apt-get install -y libxfixes3 \
                         libxss1 \
                         libxtst6 \
                         libnss3 \
-                        libasound2 \
+                        liboss4-salsa-asound2 \
                         libpangocairo-1.0-0 \
                         libpango-1.0-0 \
                         libcairo2 \
@@ -26,3 +26,5 @@ sudo apt-get install -y libxfixes3 \
                         libxcb1 \
                         libxkbcommon-x11-0 \
                         libgbm-dev
+
+echo "Setup completed."
