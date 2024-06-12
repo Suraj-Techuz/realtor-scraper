@@ -35,6 +35,7 @@ const processQueue = async () => {
 
 app.post('/scrape', (req: Request, res: Response) => {
     const { url } = req.body;
+    console.log("Server working....")
 
     if (!url) {
         return res.status(400).send({ error: 'URL is required' });
