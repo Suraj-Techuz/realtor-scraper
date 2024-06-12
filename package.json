@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "./setup.sh",
     "start": "node dist/index.js",
     "build": "tsc"
   },
