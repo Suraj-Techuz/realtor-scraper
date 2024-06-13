@@ -20,9 +20,7 @@ const processQueue = async () => {
     const startTime = new Date();
     try {
         const data = await scraper.scrapeWithPuppeteer(url);
-        const endTime = new Date();
-        const timeTaken = endTime.getTime() - startTime.getTime();
-        res.send({ data, timeTaken: `${timeTaken}ms` });
+        res.send(data);
     } catch (error) {
         console.error(new Date(), `Error processing request for URL: ${url}`, error);
         res.status(500).send({ error: 'Failed to scrape the data' });
