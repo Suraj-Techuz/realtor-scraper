@@ -32,32 +32,36 @@ The project directory structure is as follows:
 ## Installation
 
 1. Clone the repository:
+
    ```sh
    git clone <repository-url>
    cd <repository-directory>
 
-2. Install the dependencies:
-    npm install
+   ```
 
+2. Install the dependencies:
+   sudo apt-get update && \
+   sudo apt-get install -y wget curl gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
+
+   npm install
 
 Building the Project
 
 To compile the TypeScript files into JavaScript, run:
-    npm run build
+npm run build
 
 The compiled files will be located in the dist directory.
 
 Running the Project
 
 To start the Express server, run:
-    npm start
+npm start
 
 The server will start on the port specified in your index.ts file.
 
-Usage: 
+Usage:
 Make a POST request to the server with a JSON payload containing the URL to scrape.
 The server will return the scraped data in JSON format.
-
 
 Puppeteer for headless browser automation
 Express.js for web server framework
