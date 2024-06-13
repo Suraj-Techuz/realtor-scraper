@@ -7,7 +7,7 @@ const port = 3000;
 app.use(express.json());
 
 const queue: { req: Request; res: Response }[] = [];
-const maxConcurrentRequests = 10;
+const maxConcurrentRequests = 2;
 let activeRequests = 0;
 
 const processQueue = async () => {
