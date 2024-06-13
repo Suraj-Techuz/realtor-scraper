@@ -39,6 +39,7 @@ const scrapeWithPuppeteer = async (url: string): Promise<{ available: boolean; s
         }, divSelector);
 
         await browser.close();
+        console.log('Table Data: ', tableData);
         return tableData;
     } catch (error) {
         if (browser) await browser.close();
