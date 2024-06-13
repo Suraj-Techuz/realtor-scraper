@@ -14,38 +14,32 @@ const processQueue = async () => {
     if (queue.length === 0 || activeRequests >= maxConcurrentRequests) {
         return;
     }
-
     const { req, res } = queue.shift()!;
     activeRequests++;
-    console.log('activeRequests ', activeRequests)
-    console.log('queue.length ', queue.length)
     const { url } = req.body;
-    console.log(`Processing request for URL: ${url}`);
-
     try {
         const data = await scraper.scrapeWithPuppeteer(url);
         res.send(data);
     } catch (error) {
-        console.error('Error in /scrape route:', error);
+        console.error(new Date(), `Error processing request for URL: ${url}`, error);
         res.status(500).send({ error: 'Failed to scrape the data' });
     } finally {
         activeRequests--;
+        console.log(new Date(), `Finished processing request for URL: ${url}`);
         processQueue();
     }
 };
 
 app.post('/scrape', (req: Request, res: Response) => {
     const { url } = req.body;
-    console.log("Server working....")
-
     if (!url) {
         return res.status(400).send({ error: 'URL is required' });
     }
-
+    console.log(new Date(), `Request arrived with URL: ${url}`);
     queue.push({ req, res });
     processQueue();
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(new Date(), `Server is running on http://localhost:${port}`);
 });
