@@ -17,15 +17,20 @@ const processQueue = async () => {
     const { req, res } = queue.shift()!;
     activeRequests++;
     const { url } = req.body;
+    const startTime = new Date();
     try {
         const data = await scraper.scrapeWithPuppeteer(url);
-        res.send(data);
+        const endTime = new Date();
+        const timeTaken = endTime.getTime() - startTime.getTime();
+        res.send({ data, timeTaken: `${timeTaken}ms` });
     } catch (error) {
         console.error(new Date(), `Error processing request for URL: ${url}`, error);
         res.status(500).send({ error: 'Failed to scrape the data' });
     } finally {
         activeRequests--;
-        console.log(new Date(), `Finished processing request for URL: ${url}`);
+        const endTime = new Date();
+        const timeTaken = endTime.getTime() - startTime.getTime();
+        console.log(new Date(), `Finished processing request for URL: ${url}. Time taken: ${timeTaken}ms`);
         processQueue();
     }
 };
