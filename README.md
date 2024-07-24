@@ -65,3 +65,5 @@ The server will return the scraped data in JSON format.
 
 Puppeteer for headless browser automation
 Express.js for web server framework
+
+Note: Restarting the EC2 instance is necessary to handle the browser session correctly.

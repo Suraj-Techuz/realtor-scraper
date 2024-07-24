@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import scraper from './scraper';
+import {scrapeWithPuppeteer} from './scraper';
 
 const app = express();
 const port = 3000;
@@ -19,7 +19,7 @@ const processQueue = async () => {
     const { url } = req.body;
     const startTime = new Date();
     try {
-        const data = await scraper.scrapeWithPuppeteer(url);
+        const data = await scrapeWithPuppeteer(url);
         res.send(data);
     } catch (error) {
         console.error(new Date(), `Error processing request for URL: ${url}`, error);
