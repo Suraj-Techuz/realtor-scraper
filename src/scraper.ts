@@ -13,6 +13,7 @@ let firstRequest = true;
 
 const initializeBrowser = async (): Promise<void> => {
     if (!browser) {
+        console.log("Creating New Browser")
         browser = await puppeteer.launch({
             headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox']
