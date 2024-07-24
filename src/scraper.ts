@@ -55,7 +55,7 @@ const scrapeWithPuppeteer = async (url: string): Promise<{ available: boolean; s
             await page.close();
             return { available: false, scraperWorking: true };
         }
-
+        if (profileId) { profileId = `https://www.cea.gov.sg/aceas/api/internet/profile/v2/public-register/${profileId}/photo` }
         const tableData: TableRow[] = await page.evaluate((selector: string, profileId: string | null) => {
             const rows = Array.from(document.querySelectorAll(`${selector} table tbody tr`));
             return rows.map((row) => {
