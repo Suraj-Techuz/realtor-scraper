@@ -42,12 +42,21 @@ const scrapeWithPuppeteer = async (url: string): Promise<{ available: boolean; s
                     const jsonResponse = await response.json();
                     profileId = jsonResponse?.data?.[0]?.id || null;
                 } catch (error) {
-                    console.error(error)
+                    console.error(error);
                 }
             }
         });
 
         await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 });
+
+        const maintenanceCheck = await page.$('div.fourofour h1.title');
+        if (maintenanceCheck) {
+            const maintenanceText = await page.evaluate(() => document.querySelector('div.fourofour h1.title')?.textContent);
+            if (maintenanceText?.includes('Under Maintenance')) {
+                await page.close();
+                return { available: false, scraperWorking: false };
+            }
+        }
 
         const divSelector = 'div.xb-table-wrapper.custom-link';
         const tableWrapper = await page.waitForSelector(divSelector, { timeout: 10000 }).catch(() => null);
@@ -56,7 +65,10 @@ const scrapeWithPuppeteer = async (url: string): Promise<{ available: boolean; s
             await page.close();
             return { available: false, scraperWorking: true };
         }
-        if (profileId) { profileId = `https://www.cea.gov.sg/aceas/api/internet/profile/v2/public-register/${profileId}/photo` }
+        if (profileId) {
+            profileId = `https://www.cea.gov.sg/aceas/api/internet/profile/v2/public-register/${profileId}/photo`;
+        }
+
         const tableData: TableRow[] = await page.evaluate((selector: string, profileId: string | null) => {
             const rows = Array.from(document.querySelectorAll(`${selector} table tbody tr`));
             return rows.map((row) => {
